@@ -15,13 +15,13 @@ public class Aplis {
 	
 	// izveidot metodi riņķa līnijas aprēķināšanai
 	
-	public double RinkaLinijasAprekinasana() {
-		return 2.0 * Math.PI * rad;
+	public double rLinijasGarums() {
+		return Math.round((2.0 * Math.PI * rad) * 100.0) / 100.0; // smukāk, jo tikai divi cipari aiz komata
 	}
 	
 	// riņķa laukuma aprēķināšanai
 	
-	public double RinkaLaukumaAprekinasana() {
-		return Math.PI * Math.pow(rad, 2);
+	public double rLaukums() {
+		return Math.round((Math.PI * Math.pow(rad, 2)) * 100.0) / 100.0;
 	}
 }
