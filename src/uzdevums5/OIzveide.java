@@ -3,6 +3,14 @@ package uzdevums5;
 import javax.swing.JOptionPane;
 
 public class OIzveide {
+	
+	static int cPIzvele() {
+		if (Figuras.centraObjekti.size() < 1)
+			return -1;
+		return Integer.parseInt(JOptionPane.showInputDialog(null, IzveidotieObjekti.izvadit(Figuras.centraObjekti)));
+	}
+	
+	
 	static int cPozicija = 0;
 	
 	public static int skaitlaParbaude(String zinojums, int min, int max) {
@@ -42,11 +50,11 @@ public class OIzveide {
 		x = skaitlaParbaude("Ievadi centra punkta x koordinātas", -100, 100);
 		y = skaitlaParbaude("Ievadi centra punkta y koordinātas", -100, 100);
 		Figuras.centraObjekti.add(new Centrs(x, y));
+		JOptionPane.showMessageDialog(null, "Centra punkts izveidots!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 		break;
 		
 	case 1:
 		String[] ceIzvelesVeids = {"Noklusējums", "Centra punkts un malas"};
-		
 		String veids = (String)JOptionPane.showInputDialog(null, "Izvēlies, kuru konstruktoru izsaukt", "Četrstūra izveide", JOptionPane.QUESTION_MESSAGE, null, ceIzvelesVeids, ceIzvelesVeids[0]);
 		
 		
@@ -57,18 +65,47 @@ public class OIzveide {
 		switch(veids) {
 		case "Noklusejuma":
 			Figuras.cetrsturaObjekti.add(new Cetrsturis());
+			JOptionPane.showMessageDialog(null, "Noklusējuma četrstūris izveidots!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 			break;
 			
 		case "Centra punkts un malas":
-			//cPNr = cPIzvele();
-			cPNr = 0;
+			cPNr = cPIzvele();
+			if (cPNr == -1) {
+				JOptionPane.showMessageDialog(null, "Nav centra punkts, ko izvēlēties!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Četrstūris izveidots!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
+				break;
+			}
 			p = skaitlaParbaude("Ievadi četrstūra platumu", 1, 100);
 			a = skaitlaParbaude("Ievadi četrstūra augstumu", 1, 100);
 			Figuras.cetrsturaObjekti.add(new Cetrsturis(Figuras.centraObjekti.get(cPNr), p, a));
+			JOptionPane.showMessageDialog(null, "Četrstūris izveidots!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		}
 		break;
-		
+	case 2:
+		cPNr = cPIzvele();
+		if (cPNr == -1) {
+			JOptionPane.showMessageDialog(null, "Nav centra punkts, ko izvēlēties!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Aplis izveidots!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
+			break;
+		}
+		int r = skaitlaParbaude("Ievadi apļa rādiusu", 1, 100);
+		Figuras.aplaObjekti.add(new Aplis(Figuras.centraObjekti.get(cPNr), r));
+		break;
+	case 3:
+		cPNr = cPIzvele();
+		if (cPNr == -1) {
+			JOptionPane.showMessageDialog(null, "Nav centra punkts, ko izvēlēties!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+			break;
+		}
+		int m1 = skaitlaParbaude("Ievadi primās malas garumu", 1, 100);
+		int m2 = skaitlaParbaude("Ievadi otrās malas garumu", 1, 100);
+		int m3 = skaitlaParbaude("Ievadi trešās malas garumu", 1, 100);
+		if (m1 == -1 || m2 == -1 || m3 == -1)
+			break;
+		Figuras.trijsturaObjekti.add(new Trijsturis(Figuras.centraObjekti.get(cPNr), m1, m2, m3));
+		JOptionPane.showMessageDialog(null, "Trijstūris izveidots!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
+		break;
 	case 4:
 		JOptionPane.showMessageDialog(null, "Atgriežas uz galveno izvēlni!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 		break;
