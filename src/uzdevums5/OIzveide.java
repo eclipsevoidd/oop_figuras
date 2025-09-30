@@ -3,18 +3,20 @@ package uzdevums5;
 import javax.swing.JOptionPane;
 
 public class OIzveide {
+	static String ievade;
 	
 	static int cPIzvele() {
 		if (Figuras.centraObjekti.size() < 1)
 			return -1;
-		return Integer.parseInt(JOptionPane.showInputDialog(null, IzveidotieObjekti.izvadit(Figuras.centraObjekti)));
+		
+		int izvele = skaitlaParbaude(IzveidotieObjekti.izvadit(Figuras.centraObjekti), 0, Figuras.centraObjekti.size() - 1);
+		return izvele;
 	}
 	
 	
 	static int cPozicija = 0;
 	
 	public static int skaitlaParbaude(String zinojums, int min, int max) {
-		String ievade;
 		int skaitlis;
 		
 		while(true) {
@@ -41,7 +43,8 @@ public class OIzveide {
 	static void izveidotObjektu() {
 	int x, y, cPNr;
 	double p, a;
-	int izvele = JOptionPane.showOptionDialog(null, "Kuru objektu veidot?", "Izvēle", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, Figuras.objektuPogas, Figuras.objektuPogas[0]);
+	int izvele = JOptionPane.showOptionDialog(null, "Kuru objektu veidot?", "Izvēle", 
+				 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, Figuras.objektuPogas, Figuras.objektuPogas[0]);
 	
 	if (izvele == -1)
 		izvele = 0;
@@ -49,6 +52,10 @@ public class OIzveide {
 	case 0:
 		x = skaitlaParbaude("Ievadi centra punkta x koordinātas", -100, 100);
 		y = skaitlaParbaude("Ievadi centra punkta y koordinātas", -100, 100);
+		if (x == -1 || y == -1) {
+			JOptionPane.showMessageDialog(null, "Centra punkts netika izveidots!", "Brīdinājums", JOptionPane.WARNING_MESSAGE);
+			break;
+		}
 		Figuras.centraObjekti.add(new Centrs(x, y));
 		JOptionPane.showMessageDialog(null, "Centra punkts izveidots!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 		break;
@@ -71,12 +78,14 @@ public class OIzveide {
 		case "Centra punkts un malas":
 			cPNr = cPIzvele();
 			if (cPNr == -1) {
-				JOptionPane.showMessageDialog(null, "Nav centra punkts, ko izvēlēties!", "Kļūda", JOptionPane.ERROR_MESSAGE);
-				JOptionPane.showMessageDialog(null, "Četrstūris izveidots!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Netika izvēlēts centra punkts.", "Kļūda", JOptionPane.ERROR_MESSAGE);
 				break;
 			}
 			p = skaitlaParbaude("Ievadi četrstūra platumu", 1, 100);
 			a = skaitlaParbaude("Ievadi četrstūra augstumu", 1, 100);
+			if (p == -1 || a == -1) {
+				JOptionPane.showMessageDialog(null, "Četrstūris netika izveidots!", "Brīdinājums", JOptionPane.WARNING_MESSAGE);
+			}
 			Figuras.cetrsturaObjekti.add(new Cetrsturis(Figuras.centraObjekti.get(cPNr), p, a));
 			JOptionPane.showMessageDialog(null, "Četrstūris izveidots!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 			break;

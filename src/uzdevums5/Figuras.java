@@ -13,6 +13,7 @@ public class Figuras {
 	public static Object[] objektuPogas = {"Centrs", "Četrstūris", "Aplis", "Trijstūris", "Atgriezties"};
 
 	public static void main (String[] args) {
+		
 		/*
 		// izveido Centrds objektu
 		Centrs centraP1 = new Centrs(-10, 12);
@@ -46,8 +47,43 @@ public class Figuras {
 			switch(izvele) {
 			case 0:
 				JOptionPane.showMessageDialog(null, "Programma apturēta!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
+				break;
 			case 1:
 				OIzveide.izveidotObjektu();
+				break;
+			case 2:
+				poga = JOptionPane.showOptionDialog(null, "Kuras figūras aplūkot?", "Izvēle", 
+					   JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, objektuPogas, objektuPogas[0]);
+				
+				switch(poga) {
+				case 0:
+					if (centraObjekti.size() < 1) {
+						JOptionPane.showMessageDialog(null, "Nav neviens centra punkts!", "Brīdinajums", JOptionPane.WARNING_MESSAGE);
+						break;
+					}
+					JOptionPane.showMessageDialog(null, IzveidotieObjekti.izvadit(centraObjekti), "Centra punkti", JOptionPane.PLAIN_MESSAGE);
+					break;
+				case 1:
+					if (centraObjekti.size() < 1) {
+						JOptionPane.showMessageDialog(null, "Nav neviens četrstūris!", "Brīdinajums", JOptionPane.WARNING_MESSAGE);
+						break;
+					}
+					JOptionPane.showMessageDialog(null, IzveidotieObjekti.izvaditCetrsturi(cetrsturaObjekti), "Četrstūri", JOptionPane.PLAIN_MESSAGE);
+					break;
+				case 2:
+					if (centraObjekti.size() < 1) {
+						JOptionPane.showMessageDialog(null, "Nav neviens aplis!", "Brīdinajums", JOptionPane.WARNING_MESSAGE);
+						break;
+					}
+					JOptionPane.showMessageDialog(null, IzveidotieObjekti.izvaditApli(aplaObjekti), "Apļi", JOptionPane.PLAIN_MESSAGE);
+				case 3:
+					if (centraObjekti.size() < 1) {
+						JOptionPane.showMessageDialog(null, "Nav neviens trijstūris!", "Brīdinajums", JOptionPane.WARNING_MESSAGE);
+						break;
+					}
+					JOptionPane.showMessageDialog(null, IzveidotieObjekti.izvaditTrijsturi(trijsturaObjekti), "Trijstūri", JOptionPane.PLAIN_MESSAGE);
+				}
+				break;
 			}
 		} while(izvele != 0);
 		
